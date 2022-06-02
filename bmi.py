@@ -9,5 +9,5 @@ bmi = m2 / number2
 print(bmi)
 if(bmi < 14.50):
 print("your underwieght")
-if(bmi > 25):
+if(bmi > 30):
 print("your overwieght")
