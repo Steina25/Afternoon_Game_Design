@@ -11,3 +11,5 @@ if(bmi < 14.50):
 print("your underwieght")
 if(bmi > 30):
 print("your overwieght")
+if(bmi >= 14.5 and <= 30):
+    print(Your Healthy)
