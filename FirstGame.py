@@ -10,6 +10,9 @@ import os
 import random
 os.system ('cls')
 
+count = 0
+Game = True
+theword = ""
 print("---------------------------")
 print("Types of Sports Games")
 print("----Instructions----")
@@ -156,3 +159,24 @@ if QUESTION8 != ("volleyball"):
 
 #if guess.lower() != element2.lower():
     #print("Better luck next time! That was incorrect")
+
+while Game:
+    print("|-----------------------------------------|")
+    print("|Guess The Animal, Sport, or Computer part|")
+    print("|-----------------------------------------|")
+    print("| 1. Animals                              |")
+    print("| 2. Sports                               |")
+    print("| 3. Computer Parts                       |")
+    print("|    Firstly, you will be given a hint    |")
+    print("|             Your Hint Is                |")
+    print("|   These animals are big fans of water   |")
+    print("|-----------------------------------------|")
+
+    
+    name = input("What is your name? ")
+    print(name, end = ", ")
+    answer = input("would you like to play the game? ")
+    answer = answer.lower()
+    if 'n' in answer:
+        Game = False
+        break
