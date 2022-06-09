@@ -86,8 +86,8 @@ while Game:
     os.system('cls')
 
 theword = selectWord(choice)
-    check = True
-    while check and count <5:
+check = True
+while check and count <5:
         guess=input("plese put your guess here: ")
         if guess == theword:
             print("Congrats, You got it")
@@ -97,16 +97,32 @@ theword = selectWord(choice)
         count += 1
         if count == 5:
             print("sorry, you did not guess the word correctly.")
-    score = 200-40*(count -1)
-    if score > high:
+score = 200-40*(count -1)
+if score > high:
         high = score
-    print(name + ", your score is " str(score))
-    input("please press enter ")
+print (name + ", your score is " str(score))
+input("please press enter ")
 
     #os.system('cls')
-    answer = input("Do you want to play again? ")
-    if ('n' or 'N') in answer:
+answer = input("Do you want to play again? ")
+if ('n' or 'N') in answer:
         Game = False
         print("Thank you for playing")
 
-    print("your best score is" + str(high))
+print("your best score is" + str(high))
+
+
+#add highscore to file
+# Add name and score 
+
+date=datetime.datetime.now()
+print(date)
+print(date.strftime("%m / %Y"))
+
+sce= 500
+scrLine=str(sce)+"\t\t"+date.strftime("%m-%d-%Y")+ "\t"
+print(scrLine)
+
+myFile= open("scre2.txt", 'w')
+myFile.write(scrLine)
+myFile.close()

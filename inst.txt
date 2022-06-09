@@ -1,1 +1,10 @@
-<class 'ctypes.c_ushort'><class 'ctypes.c_ushort'>
+|----------------------------------|
+|-----------Instructions-----------|
+|Welcome to my number guessing game|
+|----------Select a level----------|
+|--#3-------Level1: 1-25-----------|
+|--#3-------Level2: 1-50-----------|
+|--#4-------Level3: 1-100----------|
+|When you guees you will get a hint|
+|--Saying if the number is > or <--|
+|----------------------------------|

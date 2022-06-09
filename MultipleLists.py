@@ -38,7 +38,7 @@ def option1():
   
     check = True
     count = 0
-    list = ["coral","scallop","sea urchin","oyster","mussel","cockle","clam","geoduck","abelone","ostrea"]
+    list = [""]
     theword=random.choice(list)
     while check and count <5:
         guess=input("plese put your guess here: ")
@@ -67,7 +67,7 @@ def option3():
     os.system('cls')
     check = True
     count = 0
-    list = ["coral","scallop","sea urchin","oyster","mussel","cockle","clam","geoduck","abelone","ostrea"]
+    list = ["CPU","GPU","Motherboard","PSU","Hardrive","Heatsink","CPU cooler","RAM",]
     theword=random.choice(list)
     while check and count <5:
         guess=input("plese put your guess here: ")
@@ -85,7 +85,6 @@ while Game:
     print("| 3. Computer Parts                       |")
     print("|    Firstly, you will be given a hint    |")
     print("|             Your Hint Is                |")
-    print("|   These animals are big fans of water   |")
     print("|-----------------------------------------|")
 
     

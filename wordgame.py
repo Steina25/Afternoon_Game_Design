@@ -42,7 +42,7 @@ if guess1 == theword:
 else:
     print("you missed it, try again")
 
-def hint():
+def hint(): # alows you to use code in multiple places
     global count
     if count == 0:
         print("|*************************************|")
@@ -80,3 +80,4 @@ while True:
         break 
     else:
         print("wrong again, try again")
+

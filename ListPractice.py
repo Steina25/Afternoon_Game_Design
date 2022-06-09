@@ -5,6 +5,10 @@ import os
 import random
 os.system
 
+count = 0
+Game = True
+theword = ""
+
 # A list is an array index, it is changeable, and sizeable
 # name use []
 
