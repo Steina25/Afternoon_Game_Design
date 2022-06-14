@@ -10,10 +10,6 @@
 # K_a                   a key
 # K_s                   s key
 # K_d                   d key
-
-from cgitb import text
-from locale import CHAR_MAX
-from re import T
 import pygame, os, time, random, math
 pygame.init()
 
@@ -34,8 +30,8 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("My First Game") # title of the window
 
 #images
-bg = pygame.image.load("PygameFiles\images\\bgSmaller.jpg")
-char = pygame.image.load("PygameFiles\images\PixelArtTutorial.png")
+bg = pygame.image.load("pygameFiles\images\\bgSmaller.jpg")
+char = pygame.image.load("pygameFiles\images\PixelArtTutorial.png")
 char = pygame.transform.scale(char, (50,50))
 # screen.blit(bg, (0,0))
 # pygame.display.update()
@@ -72,14 +68,20 @@ run = True
 background = colors.get("grey")
 
 def menu():
-    Title = ""
+    Title = TITLE_FONT.render("Circle Mountain Game", 1, colors("pink"))
+    screen.fill(colors.get("white"))
+    xd = WIDTH//2 - (Title.get_width()//2)
+    screen.blit(Title, (xd, 50))
+    pygame.display.update()
+    pygame.time.delay(2000)
 
 def instruction():
     #title font
     screen.fill(colors.get("white"))
     Title = TITLE_FONT.render("Instructions", 1, colors.get("black"))
     xd = WIDTH//2 - (Title.get_width()//2)
-    screen.blit(Title, (xd, 50))\
+    screen.blit(Title, (xd, 50))
+    
 
     #Instructions File
     myFile = open("PygameFiles\instructions.txt", "r")
@@ -121,7 +123,6 @@ def instruction():
                     return False
 
 #functions
-menu()
 run = instruction()
 
 #main Game

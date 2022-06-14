@@ -9,8 +9,8 @@ os.system('cls')
 
 #print(pygame.font.get_fonts())
 #pygame.time.delay(10000)
-TITLE_FONT = pygame.font.sysFont('comicsans', 40)
-MENU_FONT = pygame.font.sysFont('comicsans', 20)
+TITLE_FONT = pygame.font.SysFont('comicsans', 40)
+MENU_FONT = pygame.font.SysFont('comicsans', 20)
 
 WIDTH = 700 #pixels
 HEIGHT = 700
@@ -29,8 +29,8 @@ screen.fill(clr)
 #variables for the square
 
 #images
-bg = pygame.image.load("C:\Users\steina25\OneDrive - Greenhill School\Desktop\GameDesign\Afternoon_Game_Design\pygameFiles\images\images\\bgSmaller.jpg.url")
-char = pygame.image.load("C:\Users\steina25\OneDrive - Greenhill School\Desktop\GameDesign\Afternoon_Game_Design\pygameFiles\images\images\PixelArtTutorial.png.url")
+bg = pygame.image.load("pygameFiles\images\\bgSmaller.jpg")
+char = pygame.image.load("pygameFiles\images\PixelArtTutorial.png")
 char = pygame.transform.scale(char, (50,50))
 #screen.blit(bg, (0,0))
 #pygame.display.update()
@@ -62,7 +62,7 @@ run = True
 #create var mve
 
 screen.fill(colors.get("white"))
-Title = TITLE_FONT.render("Hello world", 1, colors.get("black'"))
+Title = TITLE_FONT.render("Hello world", 1, colors.get("black"))
 xd = WIDTH//2 - (Title.get_width()//2)
 screen.blit(Title, (30, 150))
 pygame.display.update()

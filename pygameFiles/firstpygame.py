@@ -58,7 +58,10 @@ backgrnd=colors.get("limeGreen")
 run = True
 #create var mve
 
-def instructions():
+def menu():
+    Title = Title_FOnt.render("Title", 1, colors.get("black"))
+    def instructions():
+        
     screen.fill(colors.get("white"))
     Title = TITLE_FONT.render("Instructions", 1, colors.get("black"))
     xd = WIDTH//2 - (Title.get_width()//2)
@@ -86,12 +89,24 @@ def instructions():
     text1 = MENU_FONT.render("No", 1, colors.get("black"))
     screen.blit(text1, (255, 410))
     screen.blit(text1, (425, 410))
-
-
-
     pygame.display.update()
-    pygame.delay(200000)
+    while True:
+        # screen.fill(backgrnd)
+    for event in pygame.event.get():
+        if event.type==pygame.QUIT:
+            run=False
+            print("You quit")
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            mousePos = pygame.mouse.get_pos()
+           mx = mousePos[0]
+           my = mousePos[1]
+            if Button_1.collidepoint(mx, my):
+                return True
+            if Button_2.collidepoint(mx,my):
+                return False
 
+menu()
+run = instructions()
 while run:
     screen.blit(bg, (0,0))
     # screen.fill(backgrnd)
