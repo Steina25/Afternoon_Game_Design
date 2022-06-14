@@ -74,7 +74,7 @@ while run:
     for event in pygame.event.get():
         if event.type==pygame.QUIT:
             run=False
-            print("Y quit")
+            print("You quit")
     keys= pygame.key.get_pressed() #this is a list
     #mve square
     if keys[pygame.K_RIGHT] and square.x < WIDTH -(wb):
