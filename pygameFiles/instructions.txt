@@ -1,6 +1,8 @@
- In this game we will need to use 
- the arrow keys to move the square 
- to move the circle use WASD 
+                                Welcome to "Game Title"         
+                     In this Game you can control two things 
+                          The circle using the arrow keys 
+                        and W, A, S, and D for the charecter 
+ 
 
-
- Are you ready to play? 
+                                  Are you ready to play? 
+                If so press the red X to exit back to the menu 
