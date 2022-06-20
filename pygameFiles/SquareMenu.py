@@ -603,7 +603,7 @@ colors = {"white":(255,255,255), "grey":(96,96,96), "black":(0,0,0), "red":(255,
 "WHEAT_4" : (139, 126, 102),
 "QUARTZ" : (217, 217, 243),
 }
-clr = colors.get("white")
+clr = colors.get("grey")
 
 msgMenu= ['Instructions', 'Settings', 'Game 1', 'Game 2', 'Scoreboard', 'Exit']
 msgSettings=["Background Colors", "Screen Size", "Sound On/Off"]
@@ -646,7 +646,8 @@ char = pygame.transform.scale(char, (50, 50))
 # screen.blit(bg, (0,0))
 # pygame.display.update()
 # pygame.time.delay(5000)
-
+clock = pygame.time.Clock
+clock.tick(60)
 
 #square Var
 hb=50
@@ -783,16 +784,15 @@ def settings():
     Menu("Settings",msgSettings, False)
     while True:
         for event in pygame.event.get():
-            if event.type==pygame.QUIT:
-                Menu(titleName,msgMenu,True)
-                print("You quit")
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mousePos = pygame.mouse.get_pos()
                 mx = mousePos[0]
                 my = mousePos[1]
                 if Button_colors.collidepoint((mx, my)):
-                   # screen.fill = random.choice(colors)
-                   print("color changed")
+                    screen.fill("grey")
+                    pygame.display.update()
+                    pygame.time.delay(1000)
+                   
                 if Button_size.collidepoint((mx, my)):
                     WIDTH = 500
                     HEIGHT = 500
@@ -803,8 +803,16 @@ def settings():
                     if Button_sound == False:
                         print("sound turned off") #???
                 
-                
-    
+def colorchange():
+    while run:
+        for event in pygame.event.get():
+            if event.type==pygame.MOUSEBUTTONDOWN:
+                mousePos = pygame.mouse.get_pos()
+                mx = mousePos[0]
+                my = mousePos[1]
+                print(mx,my)
+                screen.fill(clr)
+
 def Game_1():
     global mx,my, cx,cy, rad, insSquare, charx,chary 
     while run:

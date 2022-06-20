@@ -5,4 +5,4 @@
  
 
                                   Are you ready to play? 
-                If so press the red X to exit back to the menu 
+                If so press the back button to exit back to the menu 
