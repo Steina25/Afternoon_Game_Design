@@ -1,8 +1,13 @@
-                                Welcome to "Game Title"         
-                     In this Game you can control two things 
-                          The circle using the arrow keys 
-                        and W, A, S, and D for the charecter 
- 
+ Welcome to Collect The Coin  
+  In this gam there are three levels 
+  1. Easy mode: just drive to the coin and aoid the giant cones. 
+  2. Normal mode: just drive to the coin and aoid the giant cones. 
+  3. Hard mode: your car will drive at a slower speed and the coin will be moving. 
 
-                                  Are you ready to play? 
-                If so press the back button to exit back to the menu 
+
+   Controls. 
+   Use the arrow keys to move up, down, left, and right. 
+   
+
+    are you ready to play???
+     if so press the back button to continue    

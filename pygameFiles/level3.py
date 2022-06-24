@@ -1,21 +1,20 @@
-# Aaron Stein
-# 06/14/2022
-#game menu
-
-import pygame, os, time, random, math, datetime, sys
-from pygame import mixer
+import pygame, os, time, random, math, datetime, sys, turtle
 pygame.init()
 
+os.system('cls')
+win = pygame.display.set_mode((700,700))
 TITLE_FONT = pygame.font.SysFont('comicsans', 40)
 MENU_FONT = pygame.font.SysFont('comicsans', 20)
 GIANT_FONT = pygame.font.SysFont('comicsans', 100)
-
-os.system('cls')
-
-# General Variables
-WIDTH = 700   # Amount of pixels
-w3 = WIDTH//3
-HEIGHT = 700
+pygame.display.set_caption("Level 1")
+WIDTH=700
+HEIGHT=700
+walkRight = [pygame.image.load('pygameFiles\images\car_RIght.png'), pygame.image.load('pygameFiles\images\car_RIght.png'), pygame.image.load('pygameFiles\images\car_RIght.png'), pygame.image.load('pygameFiles\images\car_RIght.png'), pygame.image.load('pygameFiles\images\car_RIght.png'), pygame.image.load('pygameFiles\images\car_RIght.png'), pygame.image.load('pygameFiles\images\car_RIght.png'), pygame.image.load('pygameFiles\images\car_RIght.png'), pygame.image.load('pygameFiles\images\car_RIght.png')]
+walkLeft = [pygame.image.load('pygameFiles\images\car_left.png'), pygame.image.load('pygameFiles\images\car_left.png'), pygame.image.load('pygameFiles\images\car_left.png'), pygame.image.load('pygameFiles\images\car_left.png'), pygame.image.load('pygameFiles\images\car_left.png'), pygame.image.load('pygameFiles\images\car_left.png'), pygame.image.load('pygameFiles\images\car_left.png'), pygame.image.load('pygameFiles\images\car_left.png'), pygame.image.load('pygameFiles\images\car_left.png')]
+bg = pygame.image.load('pygameFiles\images\\roadFinal.jpg')
+char = pygame.image.load('pygameFiles\images\car_straight.png')
+cone = pygame.image.load('pygameFiles\images\Cone.png')
+coin = pygame.image.load('pygameFiles\images\smallerCoin.png')
 colors = {"white":(255,255,255), "grey":(96,96,96), "black":(0,0,0), "red":(255,0,0), "green":(0,255,0), "blue":(0,0,255), "pink":(204,0,204), "orange":(255,128,0), "yellow":(255,255,0), "purple":(127,0,255),"RED" : (255, 0, 0),
 "GREEN" : (0, 255, 0),
 "BLUE" : (0, 0,255),
@@ -599,315 +598,6 @@ colors = {"white":(255,255,255), "grey":(96,96,96), "black":(0,0,0), "red":(255,
 "WHEAT_4" : (139, 126, 102),
 "QUARTZ" : (217, 217, 243),
 }
-clr = colors.get("white")
-blueClr = (0,0,255)
-redClr = (255,0,0)
-cyanClr = (0, 255, 177)
-game = 0
-#create a display
-screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE)
-pygame.display.set_caption("My First Game") # title of the window
-#circle var
-cx = 350
-cy = 350
-rad = 25
-#square var
-hb = 50
-wb = 50
-xb = 325
-yb = 325
-square = pygame.Rect(xb,yb,wb,hb) #create the object to draw
-#char
-charx = xb
-chary = yb
-mx = 0
-my = 0
-#circle in square
-ibox = rad*math.sqrt(2)
-xig = cx-(ibox/2)
-yig = cy-(ibox/2)
-insSquare = pygame.Rect(xig,yig,ibox,ibox)
-#mountain hitbox
-mountainSquare = pygame.Rect(250, 320, 180, 250)
-#Game var
-speed = 2
-run = True
-high = 0
-background = colors.get("white")
-settingsclr = colors.get("white")
-
-
-def settings():
-    global screen
-    global settingsclr, mx, my, WIDTH, HEIGHT
-    screen.fill(settingsclr)
-    Title = TITLE_FONT.render("Settings", 1, colors.get("black"))
-    xd = WIDTH//2 - (Title.get_width()//2)
-    screen.blit(Title, (xd, 10))
-    ColorTheme = MENU_FONT.render("Background Color:", 1, colors.get("black"))
-    screen.blit(ColorTheme, (280, 70))
-    pygame.display.update()
-    pygame.time.delay(50)
-
-    # Color Backgrounds
-    Button_Blue = pygame.Rect(0, 150, 230, 50)
-    Button_Beige = pygame.Rect(250, 150, 230, 50)
-    Button_Yellow = pygame.Rect(500, 150, 230, 50)
-    Border_1 = pygame.Rect(0, 147, 233, 56)
-    Border_2 = pygame.Rect(247, 147, 236, 56)
-    Border_3 = pygame.Rect(497, 147, 233, 56)
-    pygame.draw.rect(screen, colors.get("GREY4"), Border_1)
-    pygame.draw.rect(screen, colors.get("GREY4"), Border_2)
-    pygame.draw.rect(screen, colors.get("GREY4"), Border_3)
-    pygame.draw.rect(screen, colors.get("AQUA"), Button_Blue)
-    pygame.draw.rect(screen, colors.get("BEIGE"), Button_Beige)
-    pygame.draw.rect(screen, colors.get("YELLOW"), Button_Yellow)
-    text_Blue = MENU_FONT.render("Aqua", 1, colors.get("black"))
-    text_Beige = MENU_FONT.render("Beige", 1, colors.get("black"))
-    text_Yellow = MENU_FONT.render("Yellow", 1, colors.get("black"))
-    screen.blit(text_Blue, (75, 160))
-    screen.blit(text_Beige, (330, 160))
-    screen.blit(text_Yellow, (575, 160))
-    pygame.display.update()
-    pygame.time.delay(50)
-
-    # Screen Size Settings
-    Screen_Size = MENU_FONT.render("Screen Size:", 1, colors.get("black"))
-    screen.blit(Screen_Size, (300, 300))
-    pygame.display.update()
-    pygame.time.delay(50)
-
-    Button_Size1 = pygame.Rect(0, 375, 230, 50)
-    Button_Size2 = pygame.Rect(250, 375, 230, 50)
-    Button_Size3 = pygame.Rect(500, 375, 230, 50)
-
-    pygame.draw.rect(screen, colors.get("grey"), Button_Size1)
-    pygame.draw.rect(screen, colors.get("grey"), Button_Size2)
-    pygame.draw.rect(screen, colors.get("grey"), Button_Size3)
-
-    textSize1 = MENU_FONT.render("7 by 5", 1, colors.get("black"))
-    textSize2= MENU_FONT.render("7 by 7", 1, colors.get("black"))
-    textSize3 = MENU_FONT.render("7 by 9", 1, colors.get("black"))
-    screen.blit(textSize1, (75, 385))
-    screen.blit(textSize2, (330, 385))
-    screen.blit(textSize3, (575, 385))
-    pygame.display.update()
-    pygame.time.delay(50)
-
-    
- 
-    # Back button
-    Button_Back = pygame.Rect(600, 20, 100, 50)
-    pygame.draw.rect(screen, colors.get("red"), Button_Back)
-    textBack = MENU_FONT.render("Back", 1, colors.get("black"))
-    screen.blit(textBack, (620, 20))
-    pygame.display.update()
-    pygame.time.delay(50)
-    # backround color change
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                menu()
-                print("you quit")
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                mousePos = pygame.mouse.get_pos()
-                mx = mousePos[0]
-                my = mousePos[1]
-                if Button_Blue.collidepoint(mx, my):
-                    settingsclr = "AQUA"
-                if Button_Beige.collidepoint(mx, my):
-                    settingsclr = "BEIGE"
-                if Button_Yellow.collidepoint(mx, my):
-                    settingsclr = "YELLOW"
-                if Button_Back.collidepoint(mx, my):
-                    menu()
-                if Button_Size1.collidepoint(mx, my):
-                    WIDTH == 700
-                    HEIGHT = 700
-                    screen = pygame.display.set_mode((WIDTH, HEIGHT))
-                if Button_Size2.collidepoint(mx, my):
-                    WIDTH == 900
-                    HEIGHT = 700
-                    screen = pygame.display.set_mode((WIDTH, HEIGHT))
-                if Button_Size3.collidepoint(mx, my):
-                    WIDTH == 500
-                    HEIGHT = 700
-                    screen = pygame.display.set_mode((WIDTH, HEIGHT))
-                
-
-                pygame.display.update()
-                settings()
-
-# User Name
-def user():
-    global userName
-    background = (255,255,255)
-    screen.fill(background)
-    pygame.display.update()
-    pygame.time.delay(500)
-
-    # Create title
-    # Create Box, Relative to WIDTH and HEIGHT
-
-
-    input_rect = pygame.Rect(WIDTH//4, HEIGHT//3, 350, 50)
-    pygame.draw.rect(screen, colors.get("AQUA"), input_rect)
-
-    pygame.display.update()
-    pygame.time.delay(50)
-
-    
-    Title = TITLE_FONT.render("Enter Your Name to Begin!", 1, colors.get("black"))
-    name_text = TITLE_FONT.render("Enter Name Below", 1, colors.get("black"))
-    xd = WIDTH//2 - (Title.get_width()//2)
-    screen.blit(Title, (100, 10))
-    screen.blit(name_text, (100, 30))
-    #screen.blit(Title1, (100, 200))
-    pygame.display.update()
-    pygame.time.delay(1)
-    
-
-
-    userName = ""
-
-    run = True
-    while run:
-        for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    # Menu
-                    print(userName)
-                    pygame.quit()
-                    sys.exit()
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_RETURN:
-                        print(userName)
-                        menu()
-                    if event.key == pygame.K_BACKSPACE:
-                        userName = userName[:-1]
-                    else:
-                        userName += event.unicode # Gives you all characters
-                screen.fill("white")
-                screen.blit(Title, (xd, 10))
-                # Draw rectangle
-                pygame.draw.rect(screen, "AQUA", input_rect)
-                # Update the name of user
-                name = MENU_FONT.render(userName, 1, "black")
-                screen.blit(name, (input_rect.x+5, input_rect.y+5))
-                pygame.display.flip()
-        
-        # Draw rect
-
-# Menu
-def menu():
-    global userName
-    screen.fill(settingsclr)
-    Title = TITLE_FONT.render("Collect The Coins", 1, colors.get("black")) # Create a title
-    xd = WIDTH//2 - (Title.get_width()//2)
-    screen.blit(Title, (xd, 50))
-
-    Hello = MENU_FONT.render("Hello " + str(userName) + ", select from the options below!", 1, colors.get("BLACK")) # Create a title
-    pd = WIDTH//2 - (Hello.get_width()//2)
-    screen.blit(Hello, (pd, 150))
-    
-    #creating buttons
-    ButtonInstruct = pygame.Rect(25, 200, 230, 50)
-    ButtonSettings = pygame.Rect(450, 200, 230, 50)
-    
-    ButtonLevel1 = pygame.Rect(25, 380, 230, 50)
-    ButtonLevel3 = pygame.Rect(450, 380, 230, 50)
-    ButtonLevel2 = pygame.Rect(270, 380, 165, 50)
-    
-    ButtonScore = pygame.Rect(25, 550, 230, 50)
-    ButtonExit = pygame.Rect(450, 550, 230, 50)
-    pygame.draw.rect(screen, colors.get("grey"), ButtonInstruct)
-    pygame.draw.rect(screen, colors.get("grey"), ButtonSettings)
-    
-    pygame.draw.rect(screen, colors.get("grey"), ButtonLevel1)
-    pygame.draw.rect(screen, colors.get("grey"), ButtonLevel2)
-    pygame.draw.rect(screen, colors.get("grey"), ButtonLevel3)
-    
-    pygame.draw.rect(screen, colors.get("grey"), ButtonScore)
-    pygame.draw.rect(screen, colors.get("grey"), ButtonExit)
-    
-    #render 
-    textInstruct = MENU_FONT.render("Instructions", 1, colors.get("black"))
-    textSett = MENU_FONT.render("Settings", 1, colors.get("black"))
-    
-    textGame1 = MENU_FONT.render("Level 1", 1, colors.get("black"))
-    textGame3 = MENU_FONT.render("Level 3", 1, colors.get("black"))
-    textGame2 = MENU_FONT.render("Level 2", 1, colors.get("black"))
-    
-    textScore = MENU_FONT.render("Scoreboard", 1, colors.get("black"))
-    textEx = MENU_FONT.render("Exit", 0, colors.get("black"))
-    
-    screen.blit(textInstruct, (75, 210))
-    screen.blit(textSett, (520, 210))
-    
-    screen.blit(textGame1, (95, 390))
-    screen.blit(textGame3, (530, 390))
-    screen.blit(textGame2, (320, 390))
-    screen.blit(textScore, (75, 560))
-    screen.blit(textEx, (540, 560))
-    pygame.display.update()
-
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                mousePos = pygame.mouse.get_pos()
-                mx = mousePos[0]
-                my = mousePos[1]
-                if ButtonInstruct.collidepoint(mx, my):
-                    instruction()
-                if ButtonSettings.collidepoint(mx, my):
-                    settings()
-                if ButtonScore.collidepoint(mx, my):
-                    scoreboard()
-                if ButtonExit.collidepoint(mx, my):
-                    exit()
-
-def instruction():
-    #title font
-    screen.fill(settingsclr)
-    Title = TITLE_FONT.render("Instructions", 1, colors.get("black"))
-    xd = WIDTH//2 - (Title.get_width()//2)
-    screen.blit(Title, (xd, 50))\
-
-    #Instructions File
-    myFile = open("pygameFiles\instructions.txt", "r")
-    content = myFile.readlines()
-
-    #print instructions
-    yi = 150
-    for line in content:
-        Insctruc = MENU_FONT.render(line[0:-1], 1, colors.get('black'))
-        screen.blit(Insctruc, (40, yi))
-        pygame.display.update()
-        pygame.time.delay(50)
-        yi += 40
-     # Back button
-    Button_Back = pygame.Rect(600, 20, 100, 50)
-    pygame.draw.rect(screen, colors.get("red"), Button_Back)
-    textBack = MENU_FONT.render("Back", 1, colors.get("black"))
-    screen.blit(textBack, (620, 20))
-    pygame.display.update()
-    pygame.time.delay(50)
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.quit()
-                print("you quit")
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                mousePos = pygame.mouse.get_pos()
-                mx = mousePos[0]
-                my = mousePos[1]
-                menu()
-                
-                
-
 
 clock = pygame.time.Clock()
 screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE)
@@ -923,59 +613,213 @@ down = False
 walkCount = 0
 mx = 0
 my = 0
+def coin_move():
+    cx = random.randint(-180,180)
+    cy = random.randint(-180,180)
+    win.blit(coin, (cx, cy))
+    pygame.time.delay(500)
 
-
-    
-    
-
-def scoreboard():
-    #title font
-    screen.fill(settingsclr)
-    Title = TITLE_FONT.render("Scoreboard", 1, colors.get("black"))
-    xd = WIDTH//2 - (Title.get_width()//2)
-    screen.blit(Title, (xd, 50))\
-
-    # Open Scoreboard File
-    myFile = open("scre.txt", "r")
-    content = myFile.readlines()
-
-
-    # Print instructions
-    li = 150 
-    for line in content:
-        Scores = MENU_FONT.render(line[0:-1], 1, colors.get('black')) 
-        screen.blit(Scores, (40, li))
-        pygame.display.update()
-        pygame.time.delay(100)
-        li += 40 # Add 40 pixels between each printed line
-
-    myFile.close()
-
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                menu()
-
+def redrawGameWindow():
+    global walkCount
     
 
-def exit():
-    print("here")
-    screen.fill(settingsclr)
-    Title = TITLE_FONT.render("Bye thanks for playing", 1, colors.get("black"))
-    xd = WIDTH//2 - (Title.get_width()//2)
-    screen.blit(Title, (xd, 250))
+    
+    win.blit(bg, (0,0))
+    win.blit(cone, (55, 100))
+    win.blit(cone, (235, 300))
+    win.blit(cone, (145, 100))
+    win.blit(cone, (235, 100))
+    win.blit(cone, (325, 100))
+    win.blit(cone, (415, 100))
+    win.blit(cone, (480, 180))
+    win.blit(cone, (415, 400))
+    win.blit(cone, (515, 400))
+    win.blit(cone, (20, 400))
+    win.blit(cone, (120, 500))
+    win.blit(cone, (20, 300))
+    win.blit(cone, (20, 200))
+    win.blit(cone, (415, 300))
+    cx = random.randint(-180,180)
+    cy = random.randint(-180,180)
+    win.blit(coin, (cx, cy))
+    pygame.time.delay(600)
+    
+    
+    
+    
+    if walkCount + 1 >= 27: #27 fps
+        walkCount = 0
+                                        
+    if left:
+        win.blit(walkLeft[walkCount//3], (x,y))
+        walkCount += 1
+    elif right:
+        win.blit(walkRight[walkCount//3], (x,y))
+        walkCount +=1
+    else:
+        win.blit(char, (x,y))
+    pygame.time.delay(0)
     pygame.display.update()
-    pygame.time.delay(1000)
 
-    if high > 50:
-            myFile = open("scre.txt", 'a')
-            date=datetime.datetime.now()
-            scrLine = str(high) + "\t"+ date.strftime("%m-%d-%Y")+ "\n"
-            myFile.write(scrLine)
-            myFile.close()    
+gameover_clr = (0,0,0)
 
-    pygame.quit()
-    sys.quit()
+#mainloop
+run = True
+while run:
+    clock.tick(27)
 
-user()
-menu()
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False
+
+    keys = pygame.key.get_pressed()
+
+    if keys[pygame.K_LEFT] and x < 700 - width - vel:
+        x -= vel
+        left = True
+        right = False
+    elif keys[pygame.K_RIGHT] and x < 700 - width - vel:
+        x += vel
+        right = True
+        left = False
+    elif keys[pygame.K_DOWN]:
+        y += vel
+        down = False
+        up = True
+    elif keys[pygame.K_UP]:
+        y -= vel
+        down = True
+        up = False
+    elif keys[pygame.K_UP]:
+        y -= vel
+        down = True
+        up = False
+    elif keys[pygame.K_SPACE]:
+        screen.fill(gameover_clr)
+        Win_text = TITLE_FONT.render("Oh No, You Lost!!!", 1, colors.get("RED"))
+        PlayAgain_1 = MENU_FONT.render(" Do you want To Play Again?:", 1, colors.get("RED"))
+        screen.blit(PlayAgain_1, (220, 300))
+        screen.blit(Win_text, (150, 50))
+        Button_1 = pygame.Rect(200, 400, 100, 50)
+        Button_2 = pygame.Rect(400, 400, 100, 50)
+        pygame.draw.rect(screen, colors.get("GREY4"), Button_1)
+        pygame.draw.rect(screen, colors.get("GREY4"), Button_2)
+
+        #render yes and no
+        text1 = MENU_FONT.render("Yes", 1, colors.get("RED"))
+        text2 = MENU_FONT.render("No", 1, colors.get("RED"))
+        score = MENU_FONT.render("your score is 100!", 1, colors.get("RED"))
+        screen.blit(score, (270, 500))
+        screen.blit(text1, (225, 410))
+        screen.blit(text2, (425, 410))
+        pygame.display.update()
+        run = True
+        while run:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.quit()
+                    print("you quit")
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    mousePos = pygame.mouse.get_pos()
+                    mx = mousePos[0]
+                    my = mousePos[1]
+                    if Button_1.collidepoint(mx, my):
+                        #menu()
+                        print()
+                    if Button_2.collidepoint(mx, my):
+                        pygame.quit()
+                        
+    elif keys[pygame.K_v]:
+        screen.fill(gameover_clr)
+        Win_text = TITLE_FONT.render("Congrats You Won!!!", 1, colors.get("RED"))
+        PlayAgain_1 = MENU_FONT.render(" Do you want To Play Again?:", 1, colors.get("RED"))
+        screen.blit(PlayAgain_1, (220, 300))
+        screen.blit(Win_text, (150, 50))
+        Button_1 = pygame.Rect(200, 400, 100, 50)
+        Button_2 = pygame.Rect(400, 400, 100, 50)
+        score = MENU_FONT.render("your score is 100!", 1, colors.get("RED"))
+        screen.blit(score, (270, 500))
+        pygame.draw.rect(screen, colors.get("GREY4"), Button_1)
+        pygame.draw.rect(screen, colors.get("GREY4"), Button_2)
+
+        #render yes and no
+        text1 = MENU_FONT.render("Yes", 1, colors.get("RED"))
+        text2 = MENU_FONT.render("No", 1, colors.get("RED"))
+        screen.blit(text1, (225, 410))
+        screen.blit(text2, (425, 410))
+        pygame.display.update()
+        run = True
+        while run:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.quit()
+                    print("you quit")
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    mousePos = pygame.mouse.get_pos()
+                    mx = mousePos[0]
+                    my = mousePos[1]
+                    if Button_1.collidepoint(mx, my):
+                        #menu()
+                        print()
+                    if Button_2.collidepoint(mx, my):
+                        pygame.quit()
+                        
+    else:
+        right = False
+        left = False
+        
+
+    
+
+    
+
+    redrawGameWindow()
+
+
+
+pygame.display.update()
+pygame.quit()
+
+#dont draw stuff in main loop
+
+
+def level_1end():
+        print("gameOver")
+        screen.fill(gameover_clr)
+        #MENU_FONT.render("Game Over You lost", 1, colors.get("RED"))
+
+
+
+
+        Button_1 = pygame.Rect(200, 400, 100, 50)
+        Button_2 = pygame.Rect(400, 400, 100, 50)
+        pygame.draw.rect(screen, colors.get("GREY4"), Button_1)
+        pygame.draw.rect(screen, colors.get("GREY4"), Button_2)
+
+        #render yes and no
+        #text1 = MENU_FONT.render("Yes", 1, colors.get("RED"))
+        #text2 = MENU_FONT.render("No", 1, colors.get("RED"))
+        #screen.blit(text1, (225, 410))
+        #screen.blit(text2, (425, 410))
+        pygame.display.update()
+        run = True
+        while run:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.quit()
+                    print("you quit")
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    mousePos = pygame.mouse.get_pos()
+                    mx = mousePos[0]
+                    my = mousePos[1]
+                    if Button_1.collidepoint(mx, my):
+                        pygame.quit()
+                        sys.quit()
+                    if Button_2.collidepoint(mx, my):
+                        pygame.quit()
+                        sys.quit()                  
+    
+        
